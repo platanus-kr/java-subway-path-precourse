@@ -40,7 +40,7 @@ public class Subway {
 
     private void loadInitDistanceData() {
         InitConstants.LINE_LIST.forEach(line -> distancePathRepository
-            .addNewLine(lineRepository.findByName(line), InitConstants.SECTION_LIST.get(line)));
+            .addInitLine(lineRepository.findByName(line), InitConstants.SECTION_LIST.get(line)));
         for (List<String> element : InitConstants.DISTANCE_PATH_LIST) {
             distancePathRepository.addEdgeWeight(
                 lineRepository.findByName(element.get(0)),
@@ -52,7 +52,7 @@ public class Subway {
 
     private void loadInitTimeData() {
         InitConstants.LINE_LIST.forEach(line -> timePathRepository
-            .addNewLine(lineRepository.findByName(line), InitConstants.SECTION_LIST.get(line)));
+            .addInitLine(lineRepository.findByName(line), InitConstants.SECTION_LIST.get(line)));
         for (List<String> element : InitConstants.TIME_PATH_LIST) {
             timePathRepository.addEdgeWeight(
                 lineRepository.findByName(element.get(0)),

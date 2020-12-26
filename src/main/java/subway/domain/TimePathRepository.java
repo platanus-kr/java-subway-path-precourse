@@ -12,8 +12,10 @@ public class TimePathRepository {
     private Map<Line, WeightedMultigraph> paths = new HashMap<>();
     private WeightedMultigraph<String, DefaultWeightedEdge> graphs =
         new WeightedMultigraph(DefaultWeightedEdge.class);
+    private DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(this.graphs);
 
-    public void addNewLine(Line line, List<String> stations) {
+
+    public void addInitLine(Line line, List<String> stations) {
         stations.stream().forEach(name -> graphs.addVertex(name));
         this.paths.put(line, graphs);
     }
@@ -24,16 +26,12 @@ public class TimePathRepository {
     }
 
     public List findStationToStation(Station startStation, Station endStation) {
-        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graphs);
-        return dijkstraShortestPath
-            .getPath(startStation.getName(), endStation.getName())
+        return dijkstraShortestPath.getPath(startStation.getName(), endStation.getName())
             .getVertexList();
     }
 
     public int findValue(Station startStation, Station endStation) {
-        DijkstraShortestPath dijkstraShortestPath = new DijkstraShortestPath(graphs);
-        return (int) dijkstraShortestPath
-            .getPath(startStation.getName(), endStation.getName())
+        return (int) dijkstraShortestPath.getPath(startStation.getName(), endStation.getName())
             .getWeight();
     }
 }

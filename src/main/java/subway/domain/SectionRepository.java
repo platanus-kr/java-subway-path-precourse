@@ -14,7 +14,6 @@ public class SectionRepository {
 
     private final Map<Line, List<Station>> sections = new HashMap<>();
 
-
     public SectionRepository() {
     }
 
@@ -26,8 +25,9 @@ public class SectionRepository {
         addStationList(line, List.of(startStation, endStation)); // immutable
     }
 
-    public void addSection(Line line, Station station, int index) {
+    public void addSection(Line line, Station station, int index, int distance, int time) {
         List<Station> stations = sections.get(line);
+        // 여기서 기존 역에 대한 DistancePath, TimePath를 찾아서 다시 보정할 것.
         stations.add(index - Constants.INDEX_ARRANGE_INT, station);
     }
 

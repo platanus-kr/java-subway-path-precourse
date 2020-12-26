@@ -99,6 +99,8 @@ public class Constants {
     public final static String ADD_SECTION_LINE_ASK = "## 노선을 입력하세요.";
     public final static String ADD_SECTION_STATION_ASK = "## 역이름을 입력하세요.";
     public final static String ADD_SECTION_INDEX_ASK = "## 순서를 입력하세요.";
+    public final static String ADD_SECTION_DISTANCE_ASK = "## 역 사이 거리를 입력하세요.";
+    public final static String ADD_SECTION_TIME_ASK = "## 역 사이 이동 시간을 입력하세요.";
     public final static String ADDED_SECTION = "구간이 등록되었습니다.";
     public final static String DELETE_SECTION_LINE_ASK = "## 삭제할 구간의 노선을 입력하세요.";
     public final static String DELETE_SECTION_STATION_ASK = "## 삭제할 구간의 역을 입력하세요.";

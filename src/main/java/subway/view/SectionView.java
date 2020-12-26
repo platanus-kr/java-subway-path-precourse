@@ -47,8 +47,12 @@ public class SectionView extends AbstractView {
             int index = InputUtils.parsePositiveIntOrThrow(
                 DialogUtils.ask(scanner, Constants.ADD_SECTION_INDEX_ASK));
             checkValidationLengthOrThrow(line, index);
+            int distance = InputUtils.parsePositiveIntOrThrow(
+                DialogUtils.ask(scanner, Constants.ADD_SECTION_DISTANCE_ASK));
+            int time = InputUtils.parsePositiveIntOrThrow(
+                DialogUtils.ask(scanner, Constants.ADD_SECTION_TIME_ASK));
 
-            subway.getSectionRepository().addSection(line, station, index);
+            subway.getSectionRepository().addSection(line, station, index, distance, time);
             MessageUtils.printInfo(Constants.ADDED_SECTION);
         } catch (Exception e) {
             MessageUtils.printError(e.getMessage());

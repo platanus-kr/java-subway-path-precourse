@@ -6,18 +6,20 @@
 
 ## After party
 
+> 우테코 프리코스 이수 이후 코드
+
 ### 1. Migration
 
 - [X] 기존 코드 가지고 오기
 - [X] MainView 통합
 - [X] InquiryView 추상화
 
-### 3. View (w. Service)
+### 2. View (w. Service)
 
 - [ ] 구간 추가시 구간에 대한 시간, 거리 정보 입력받기 구현
 - [ ] 구간 입력 기능 예외처리 추가
 
-### 2. Service
+### 3. Service
 
 - [ ] 뷰에서 서비스 코드 분해
 - [ ] 서비스를 통한 객체 내리기
