@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,20 +20,6 @@ public class SectionRepository {
 
     public void addStationList(Line line, List<Station> stations) {
         sections.put(line, new LinkedList<>(stations)); // mutable
-    }
-
-
-    public void addNewLineN(Line line, List<Station> stations, int distance, int time) {
-        ListIterator<Station> stationsIter = stations.listIterator();
-        while (stationsIter.hasNext()) {
-            System.out.println(stationsIter.next().getName());
-            System.out.println(stationsIter.next().getName());
-
-//            timeBetweenStation
-//                .setEdgeWeight(timeBetweenStation.addEdge(stationsIter, stationsIter.next()), time),
-//                2);
-//            distanceBetweenStation.setEdgeWeight(distanceBetweenStation.addEdge("v1", "v2"), 2);
-        }
     }
 
     public void addNewLine(Line line, Station startStation, Station endStation) {

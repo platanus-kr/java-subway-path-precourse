@@ -11,31 +11,16 @@ import subway.util.Constants;
 import subway.util.DialogUtils;
 import subway.util.MessageUtils;
 
-public class InquiryView {
-
-    private boolean isRunning = true;
-
-    private final Scanner scanner;
-    private final Subway subway;
+public class InquiryView extends AbstractView {
 
     private Map<String, Runnable> menuActionMap;
 
     public InquiryView(Subway subway, Scanner scanner) {
-        this.scanner = scanner;
-        this.subway = subway;
-
-        initView();
+        super(subway, scanner);
     }
 
-    public void start() {
-        isRunning = true;
-        while (isRunning) {
-            menuSelector();
-        }
-    }
-
+    @Override
     public void initView() {
-
         menuActionMap = Map.of(
             "1", this::showShortestDistance,
             "2", this::showMinimumTime,
@@ -43,15 +28,26 @@ public class InquiryView {
         );
     }
 
+    @Override
+    public Menu getMenu() {
+        return Constants.MENU_GROUPS.get(Constants.INQUIRY_MENU_STATE);
+    }
+
+    @Override
+    public Map<String, Runnable> getMenuActionMap() {
+        return menuActionMap;
+    }
+
+
     private void showShortestDistance() {
         try {
             Map<String, String> station = inputStartAndEndStation(scanner);
             MessageUtils.printAnnouncement(Constants.INQUIRY_RESULT);
-            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_INQUIRY);
+            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_SUBWAY_MAP);
             showDistance(getShortestDistance(station.get("start"), station.get("end")));
             List wholePath = getStationsByDistancePath(station.get("start"), station.get("end"));
             showTime(getTimeByDistancePath(wholePath));
-            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_INQUIRY);
+            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_SUBWAY_MAP);
             wholePath.stream().forEach(name -> MessageUtils.printInfoEntry((String) name));
             MessageUtils.printBlankLine();
         } catch (Exception e) {
@@ -63,11 +59,11 @@ public class InquiryView {
         try {
             Map<String, String> station = inputStartAndEndStation(scanner);
             MessageUtils.printAnnouncement(Constants.INQUIRY_RESULT);
-            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_INQUIRY);
+            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_SUBWAY_MAP);
             List wholePath = getStationsByTimePath(station.get("start"), station.get("end"));
             showDistance(getDistanceByTimePath(wholePath));
             showTime(getMinimumTime(station.get("start"), station.get("end")));
-            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_INQUIRY);
+            MessageUtils.printInfoEntry(Constants.SEPARATE_STRING_SUBWAY_MAP);
             wholePath.stream().forEach(name -> MessageUtils.printInfoEntry((String) name));
             MessageUtils.printBlankLine();
         } catch (Exception e) {
@@ -139,8 +135,8 @@ public class InquiryView {
             String current = (String) stationIter.next();
             cost += subway.getDistancePathRepository()
                 .findValue(
-                    subway.getStationRepository().findByName((String) previous),
-                    subway.getStationRepository().findByName((String) current));
+                    subway.getStationRepository().findByName(previous),
+                    subway.getStationRepository().findByName(current));
             previous = current;
         }
         return cost;
@@ -157,7 +153,7 @@ public class InquiryView {
     private String getStationNameOrThrow(String stationName) {
         Station station = subway.getStationRepository().findByName(stationName);
         if (station == null) {
-            throw new RuntimeException(Constants.INVALID_STATION);
+            throw new RuntimeException(Constants.NO_EXIST_STATION);
         }
         return station.getName();
     }
@@ -182,16 +178,5 @@ public class InquiryView {
         action.run();
     }
 
-    public Menu getMenu() {
-        return Constants.MENU_GROUPS.get(Constants.INQUIRY_MENU_STATE);
-    }
-
-    public Map<String, Runnable> getMenuActionMap() {
-        return menuActionMap;
-    }
-
-    public void goBackward() {
-        isRunning = false;
-    }
 
 }
